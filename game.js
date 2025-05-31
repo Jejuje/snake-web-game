@@ -85,6 +85,18 @@ function gameLoop() {
 }
 
 document.addEventListener('keydown', e => {
+    if (gameOver && (e.key === 'r' || e.key === 'R')) {
+        // Reset game state
+        snake = [{ x: 10, y: 10 }];
+        direction = { x: 0, y: 0 };
+        food = { x: 15, y: 15 };
+        gameOver = false;
+        score = 0;
+        draw();
+        // Start moving after first key press again
+        window.addEventListener('keydown', startGameOnce);
+        return;
+    }
     switch (e.key) {
         case 'ArrowUp': if (direction.y !== 1) direction = { x: 0, y: -1 }; break;
         case 'ArrowDown': if (direction.y !== -1) direction = { x: 0, y: 1 }; break;
@@ -92,6 +104,14 @@ document.addEventListener('keydown', e => {
         case 'ArrowRight': if (direction.x !== -1) direction = { x: 1, y: 0 }; break;
     }
 });
+
+function startGameOnce() {
+    if (direction.x !== 0 || direction.y !== 0) return;
+    direction = { x: 1, y: 0 };
+    gameLoop();
+    window.removeEventListener('keydown', startGameOnce);
+}
+
 
 draw();
 // Start moving after first key press
