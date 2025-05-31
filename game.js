@@ -10,11 +10,11 @@ let gameOver = false;
 let score = 0;
 
 function draw() {
-    ctx.fillStyle = '#111';
+    ctx.fillStyle = '#2196f3'; // blue background
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw snake
-    ctx.fillStyle = '#0f0';
+    ctx.fillStyle = '#fff'; // white snake
     snake.forEach(part => {
         ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
     });
